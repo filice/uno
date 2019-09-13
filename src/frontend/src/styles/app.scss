@@ -1,0 +1,23 @@
+@import '~normalize.css/normalize';
+@import '~skeleton-css/css/skeleton';
+
+@import 'variables';
+
+body {
+  color: $body-colour;
+  margin-top: 10%;
+}
+
+h1 {
+  font-family: $inter-font-stack;
+  margin-bottom: 10px;
+}
+
+.text-centre {
+  text-align: center;
+}
+
+.text-centre-vert {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
