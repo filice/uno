@@ -1,17 +1,21 @@
-const express = require('express');
-const jwt = require('express-jwt');
 const bodyParser = require('body-parser');
+const express = require('express');
+const http = require('http');
+const socketio = require('socket.io');
 
 const Database = require('./Database.js');
 const Game = require('./Game.js');
 
 class App {
   constructor() {
-    // Configure webserver
-    const app = express();
-    this.app = app;
+    // Configure web server
+    this.app = express();
 
-    app.use(bodyParser.json());
+    this.app.use(bodyParser.json());
+
+    // Configure Socket.io server
+    this.server = http.Server(this.app);
+    this.io = socketio(this.server);
 
     // Configure database
     this.db = new Database();
@@ -20,16 +24,20 @@ class App {
     this.game = new Game(this.db);
 
     // Routes
-    this.game.route(app);
+    this.game.route(this.app);
+
+    // Socket.io
+    this.game.connect(this.io);
   }
 
   start(port) {
-    this.app.listen(port, () => {
+    this.server.listen(port, () => {
       console.log(`Server listening on port ${port}`);
     });
   }
 }
 
 const port = process.env.PORT || 8080;
+
 // Start server
 (new App()).start(port);

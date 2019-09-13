@@ -46,6 +46,11 @@ module.exports = {
         target: 'http://localhost:5000',
         secure: false,
       },
+      '/socket.io': {
+        target: 'http://localhost:5000',
+        secure: false,
+        ws: true,
+      },
     },
   },
 };

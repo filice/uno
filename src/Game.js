@@ -50,6 +50,12 @@ class Game {
       app[r.method]('/api' + r.route, r.callback.bind(this));
     });
   }
+
+  connect(io) {
+    io.on('connection', socket => {
+      socket.emit('hello');
+    });
+  }
 }
 
 module.exports = Game;
