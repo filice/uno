@@ -67,7 +67,11 @@ class Game {
 
         socket.on('disconnect', () => {
           this.db.removePlayer(player.uuid);
-          this.updatePlayers(io, player.game);
+
+          const hasPlayers = this.updatePlayers(io, player.game);
+          if (!hasPlayers) {
+            this.db.deleteGame(player.game);
+          }
         });
 
         // Add player to room
@@ -77,9 +81,14 @@ class Game {
   }
 
   updatePlayers(io, game) {
-    io
-      .in(game)
-      .emit('players', this.getPlayersInGame(io, game));
+    const players = this.getPlayersInGame(io, game);
+
+    if (players.length === 0) {
+      return false;
+    } else {
+      io.in(game).emit('players', players);
+      return true;
+    }
   }
 
   getPlayersInGame(io, game) {

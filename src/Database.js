@@ -19,6 +19,11 @@ class Database {
     return game.id;
   }
 
+  deleteGame(id) {
+    this.games.findAndRemove({ id });
+    this.players.findAndRemove({ game: id });
+  }
+
   createPlayer(name, gameId) {
     // Validate input
     if (!name || name.length < 4 || name.length > 15) {
