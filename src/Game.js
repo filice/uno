@@ -1,11 +1,12 @@
 const jwt = require('jsonwebtoken');
+const socketioJwt = require('socketio-jwt');
 
 const TOKEN_SECRET = process.env.TOKEN_KEY || 'secret';
 
 class Game {
   constructor(db) {
     this.db = db;
-  }
+  } 
 
   createGame(req, res) {
     const id = this.db.createGame();
@@ -52,9 +53,52 @@ class Game {
   }
 
   connect(io) {
-    io.on('connection', socket => {
-      socket.emit('hello');
+    io
+      .on('connection', socketioJwt.authorize({
+        secret: TOKEN_SECRET,
+        timeout: 10000,
+      })).on('authenticated', socket => {
+        const player = socket.decoded_token;
+
+        // Verify that player exists
+        if (!this.db.verifyPlayer(player.uuid)) {
+          socket.disconnect(true);
+        }
+
+        socket.on('disconnect', () => {
+          this.db.removePlayer(player.uuid);
+          this.updatePlayers(io, player.game);
+        });
+
+        // Add player to room
+        socket.join(player.game);
+        this.updatePlayers(io, player.game);
     });
+  }
+
+  updatePlayers(io, game) {
+    io
+      .in(game)
+      .emit('players', this.getPlayersInGame(io, game));
+  }
+
+  getPlayersInGame(io, game) {
+    if (!(game in io.sockets.adapter.rooms)) {
+      return [];
+    }
+
+    const sockets = io.sockets.adapter.rooms[game].sockets;
+
+    let players = [];
+    for (const socketId in sockets) {
+      const socket = io.sockets.connected[socketId];
+      players.push({
+        name: socket.decoded_token.name,
+        uuid: socket.decoded_token.uuid,
+      });
+    }
+
+    return players;
   }
 }
 

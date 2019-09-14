@@ -5,7 +5,7 @@ import {
   FAIL,
   PENDING,
   SUCCESS,
-} from '../constants';
+} from '../actionTypes';
 
 export const createPlayer = (name, gameId) => dispatch => {
   dispatch({ type: PENDING('CREATE_PLAYER') });

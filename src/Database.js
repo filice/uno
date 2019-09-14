@@ -42,6 +42,14 @@ class Database {
 
     return [false, player];
   }
+
+  removePlayer(uuid) {
+    this.players.findAndRemove({ uuid });
+  }
+
+  verifyPlayer(uuid) {
+    return this.players.find({ uuid });
+  }
 }
 
 module.exports = Database;

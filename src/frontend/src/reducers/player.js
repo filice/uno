@@ -2,7 +2,7 @@ import {
   FAIL,
   PENDING,
   SUCCESS,
-} from '../constants';
+} from '../actionTypes';
 
 const initCreatePlayerState = {
   loading: false,
