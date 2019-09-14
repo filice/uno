@@ -11,7 +11,7 @@ const Lobby = () => {
 
   // Go back to menu if game not loaded
   useEffect(() => {
-    if (statePlayer.game === -1) {
+    if (!statePlayer.game) {
       dispatch(replace('/menu'));
     }
   }, []);

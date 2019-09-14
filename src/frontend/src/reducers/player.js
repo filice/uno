@@ -39,7 +39,7 @@ const initPlayerState = {
   loggedIn: false,
   uuid: '',
   name: '',
-  game: -1,
+  game: '',
   token: '',
 };
 

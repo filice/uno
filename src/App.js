@@ -10,7 +10,6 @@ class App {
   constructor() {
     // Configure web server
     this.app = express();
-
     this.app.use(bodyParser.json());
 
     // Configure Socket.io server
@@ -22,10 +21,8 @@ class App {
 
     // Setup game
     this.game = new Game(this.db);
-
-    // Routes
+    // Web routes
     this.game.route(this.app);
-
     // Socket.io
     this.game.connect(this.io);
   }

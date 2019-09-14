@@ -25,12 +25,12 @@ class Database {
       return [true, 'Name must be 4 - 15 characters long.'];
     }
 
-    if (!gameId || String(gameId).length !== 5) {
+    if (!gameId || gameId.length !== 5) {
       return [true, 'Game ID invalid.'];
     }
 
     // Check if game exists
-    if (!this.games.find({ id: gameId })) {
+    if (!this.games.count({ id: gameId}) > 0) {
       return [true, 'Game not found.'];
     }
 
