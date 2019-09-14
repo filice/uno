@@ -13,7 +13,7 @@ class Database {
 
   createGame() {
     const game = this.games.insert({
-      id: utils.genRoomId(),
+      id: utils.genUniqueId(this.games),
     });
 
     return game.id;
