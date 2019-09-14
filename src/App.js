@@ -30,6 +30,23 @@ class App {
   start(port) {
     this.server.listen(port, () => {
       console.log(`Server listening on port ${port}`);
+
+      this.startPrompt();
+    });
+  }
+
+  startPrompt() {
+    process.stdin.setEncoding('utf-8');
+    process.stdout.write('> ');
+
+    process.stdin.on('data', data => {
+      try {
+        console.log(eval(data.trim()));
+      } catch (e) {
+        console.error(e);
+      }
+
+      process.stdout.write('> ');
     });
   }
 }
