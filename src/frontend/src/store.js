@@ -4,6 +4,7 @@ import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
 
 import createRootReducer from './reducers';
+import { disconnectSocket } from './middleware';
 
 export const history = createBrowserHistory();
 
@@ -17,6 +18,8 @@ const store = createStore(
     applyMiddleware(
       routerMiddleware(history),
       thunk,
+
+      disconnectSocket,
     ),
   ),
 );

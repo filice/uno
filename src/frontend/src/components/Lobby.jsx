@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { replace } from 'connected-react-router';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -18,6 +19,7 @@ const Lobby = () => {
 
   return (
     <div className="text-centre top-margin">
+      <Link to='/menu'>Back to menu</Link>
       <h1>Lobby</h1>
       <p>Game Code: <span className="code">{statePlayer.game}</span></p>
 
