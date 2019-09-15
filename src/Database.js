@@ -78,8 +78,19 @@ class Database {
     }
 
     game.players = utils.shuffleArray(game.players);
+    game.turnDirRight = true;
     game.curTurn = game.players[0];
+    game.curColour = game.discard[0].colour;
     this.games.update(game);
+  }
+
+  getGameState(id) {
+    const game = this.games.findOne({ id });
+    return {
+      curTurn: game.curTurn,
+      curColour: game.curColour,
+      discardTop: game.discard[0],
+    }
   }
 }
 

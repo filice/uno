@@ -6,6 +6,7 @@ import {
   GAME_DISCONNECTED,
   GAME_STARTED,
   GAME_STARTING,
+  GAME_STATE_UPDATED,
   PENDING,
   PLAYERS_UPDATED,
   SUCCESS,
@@ -49,6 +50,7 @@ const initGameState = {
   players: [],
   starting: false,
   started: false,
+  state: {},
 };
 
 export const game = (state = initGameState, action) => {
@@ -92,6 +94,12 @@ export const game = (state = initGameState, action) => {
       return {
         ...state,
         started: true,
+      };
+
+    case GAME_STATE_UPDATED:
+      return {
+        ...state,
+        state: action.payload,
       };
 
     default:

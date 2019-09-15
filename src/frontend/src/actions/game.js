@@ -7,6 +7,7 @@ import {
   GAME_DISCONNECTED,
   GAME_STARTED,
   GAME_STARTING,
+  GAME_STATE_UPDATED,
   PENDING,
   PLAYERS_UPDATED,
   SUCCESS,
@@ -56,4 +57,11 @@ export const gameStarting = () => dispatch => {
 
 export const gameStarted = () => dispatch => {
   dispatch({ type: GAME_STARTED });
+};
+
+export const gameStateUpdated = payload => dispatch => {
+  dispatch({
+    type: GAME_STATE_UPDATED,
+    payload,
+  });
 };

@@ -83,6 +83,7 @@ class Game {
         socket.on('start game', () => {
           io.in(player.game).emit('starting game');
           this.startGame(io, player.game);
+          this.updateGameState(io, player.game);
         });
     });
   }
@@ -124,6 +125,10 @@ class Game {
     this.db.addPlayers(game);
 
     io.in(game).emit('game started');
+  }
+
+  updateGameState(io, game) {
+    io.in(game).emit('game state', this.db.getGameState(game));
   }
 }
 
