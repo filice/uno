@@ -9,7 +9,12 @@ import { disconnectSocket } from './middleware';
 export const history = createBrowserHistory();
 
 // Redux Devtools
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers =
+  typeof window === 'object' &&
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?   
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+      trace: true,
+    }) : compose;
 
 const store = createStore(
   createRootReducer(history),
