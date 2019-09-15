@@ -5,6 +5,7 @@ import {
   FAIL,
   GAME_CONNECTED,
   GAME_DISCONNECTED,
+  GAME_STARTING,
   PENDING,
   PLAYERS_UPDATED,
   SUCCESS,
@@ -47,3 +48,7 @@ export const updatePlayers = players => dispatch => {
     payload: players,
   });
 };
+
+export const gameStarting = () => dispatch => {
+  dispatch({ type: GAME_STARTING, });
+}

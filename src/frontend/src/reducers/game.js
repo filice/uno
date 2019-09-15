@@ -4,6 +4,7 @@ import {
   FAIL,
   GAME_CONNECTED,
   GAME_DISCONNECTED,
+  GAME_STARTING,
   PENDING,
   PLAYERS_UPDATED,
   SUCCESS,
@@ -45,6 +46,7 @@ const initGameState = {
   socket: null,
   connected: false,
   players: [],
+  starting: false,
 };
 
 export const game = (state = initGameState, action) => {
@@ -77,6 +79,12 @@ export const game = (state = initGameState, action) => {
         players: action.payload,
       };
       break;
+
+    case GAME_STARTING:
+      return {
+        ...state,
+        starting: true,
+      };
 
     default:
       return state;

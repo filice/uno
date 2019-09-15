@@ -77,6 +77,11 @@ class Game {
         // Add player to room
         socket.join(player.game);
         this.updatePlayers(io, player.game);
+
+        socket.on('start game', () => {
+          io.in(player.game).emit('starting game');
+          this.startGame(io, player.game);
+        });
     });
   }
 
@@ -108,6 +113,10 @@ class Game {
     }
 
     return players;
+  }
+
+  startGame(io, game) {
+    
   }
 }
 

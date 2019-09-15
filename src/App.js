@@ -4,7 +4,7 @@ const http = require('http');
 const socketio = require('socket.io');
 
 const Database = require('./Database.js');
-const Game = require('./Game.js');
+const Game = require('./game/Game.js');
 
 class App {
   constructor() {
