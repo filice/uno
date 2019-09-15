@@ -1,5 +1,6 @@
 const GAME_ROUTES = [
   '/lobby',
+  '/game',
 ];
 
 // Disconnect socket when changing to non-game route

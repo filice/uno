@@ -1,0 +1,10 @@
+@import 'mixins';
+@import 'variables';
+
+h4#turnIndicator {
+  margin-bottom: 10px;
+}
+
+span#curPlayer {
+  @include mono-highlight(22px);
+}

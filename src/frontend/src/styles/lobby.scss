@@ -1,12 +1,8 @@
+@import 'mixins';
 @import 'variables';
 
-$code-background-color: #e1e1e1;
-
 span.code {
-  font-size: 14px;
-  font-family: monospace;
-  background-color: $code-background-color;
-  padding: 1px 5px;
+  @include mono-highlight(14px);
 }
 
 hr {
