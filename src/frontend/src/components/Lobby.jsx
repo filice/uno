@@ -43,7 +43,10 @@ const Lobby = () => {
     return (
       <ul>
         {stateGame.players.map(player => (
-          <li className="player" key={player.uuid}>{player.name}</li>
+          <li className="player" key={player.uuid}>
+            {player.name}
+            {player.uuid === statePlayer.uuid && ' (you)'}
+          </li>
         ))}
       </ul>
     );
