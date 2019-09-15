@@ -1,6 +1,9 @@
+import { push } from 'connected-react-router';
+
 import store from './store';
 import {
   gameConnected,
+  gameStarted,
   gameStarting,
   updatePlayers,
 } from './actions';
@@ -25,6 +28,12 @@ const connectSocket = socket => {
 
           // Game starting
           socket.on('starting game', () => store.dispatch(gameStarting()));
+
+          // Game started
+          socket.on('game started', () => {
+            store.dispatch(gameStarted());
+            store.dispatch(push('/game'));
+          });
         });
 
     }).on('disconnect', () => {

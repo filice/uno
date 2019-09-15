@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const socketioJwt = require('socketio-jwt');
 
+const deck = require('./deck.js');
+
 const TOKEN_SECRET = process.env.TOKEN_KEY || 'secret';
 
 class Game {
@@ -116,7 +118,12 @@ class Game {
   }
 
   startGame(io, game) {
-    
+    // Setup deck
+    this.db.loadDeck(game, deck.getShuffledDeck());
+    // Add players and deal hands
+    this.db.addPlayers(game);
+
+    io.in(game).emit('game started');
   }
 }
 

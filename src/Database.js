@@ -55,6 +55,32 @@ class Database {
   verifyPlayer(uuid) {
     return this.players.find({ uuid });
   }
+
+  loadDeck(id, fullDeck) {
+    let deck = fullDeck;
+    // Place top of deck in discard
+    const discard = [deck.shift()];
+
+    this.games.updateWhere(g => g.id === id, game => {
+      game.deck = deck;
+      game.discard = discard;
+    });
+  }
+
+  addPlayers(id) {
+    let game = this.games.findOne({ id });
+    game.players = [];
+
+    for (let player of this.players.find({ game: id })) {
+      player.hand = game.deck.splice(0, 7);
+      game.players.push(player.uuid);
+      this.players.update(player);
+    }
+
+    game.players = utils.shuffleArray(game.players);
+    game.curTurn = game.players[0];
+    this.games.update(game);
+  }
 }
 
 module.exports = Database;

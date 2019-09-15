@@ -4,6 +4,7 @@ import {
   FAIL,
   GAME_CONNECTED,
   GAME_DISCONNECTED,
+  GAME_STARTED,
   GAME_STARTING,
   PENDING,
   PLAYERS_UPDATED,
@@ -47,6 +48,7 @@ const initGameState = {
   connected: false,
   players: [],
   starting: false,
+  started: false,
 };
 
 export const game = (state = initGameState, action) => {
@@ -84,6 +86,12 @@ export const game = (state = initGameState, action) => {
       return {
         ...state,
         starting: true,
+      };
+
+    case GAME_STARTED:
+      return {
+        ...state,
+        started: true,
       };
 
     default:

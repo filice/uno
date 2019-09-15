@@ -5,6 +5,7 @@ import {
   FAIL,
   GAME_CONNECTED,
   GAME_DISCONNECTED,
+  GAME_STARTED,
   GAME_STARTING,
   PENDING,
   PLAYERS_UPDATED,
@@ -40,7 +41,7 @@ export const gameConnected = connected => dispatch => {
     dispatch({ type: GAME_DISCONNECTED });
     dispatch(replace('/lobby'));
   }
-}
+};
 
 export const updatePlayers = players => dispatch => {
   dispatch({
@@ -50,5 +51,9 @@ export const updatePlayers = players => dispatch => {
 };
 
 export const gameStarting = () => dispatch => {
-  dispatch({ type: GAME_STARTING, });
-}
+  dispatch({ type: GAME_STARTING });
+};
+
+export const gameStarted = () => dispatch => {
+  dispatch({ type: GAME_STARTED });
+};
