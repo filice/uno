@@ -1,6 +1,7 @@
 import {
   FAIL,
   PENDING,
+  PLAYER_STATE_UPDATED,
   SUCCESS,
 } from '../actionTypes';
 
@@ -41,6 +42,7 @@ const initPlayerState = {
   name: '',
   game: '',
   token: '',
+  hand: [],
 };
 
 export const player = (state = initPlayerState, action) => {
@@ -48,6 +50,12 @@ export const player = (state = initPlayerState, action) => {
     case SUCCESS('CREATE_PLAYER'):
       return {
         loggedIn: true,
+        ...action.payload,
+      };
+
+    case PLAYER_STATE_UPDATED:
+      return {
+        ...state,
         ...action.payload,
       };
 

@@ -50,7 +50,9 @@ const initGameState = {
   players: [],
   starting: false,
   started: false,
-  state: {},
+  curTurn: '',
+  curColour: '',
+  discardTop: {},
 };
 
 export const game = (state = initGameState, action) => {
@@ -99,7 +101,7 @@ export const game = (state = initGameState, action) => {
     case GAME_STATE_UPDATED:
       return {
         ...state,
-        state: action.payload,
+        ...action.payload,
       };
 
     default:

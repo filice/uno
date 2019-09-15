@@ -92,6 +92,20 @@ class Database {
       discardTop: game.discard[0],
     }
   }
+
+  getPlayersInGame(gameId) {
+    return this.players.find({ game: gameId });
+  }
+
+  getPlayer(uuid) {
+    const player = this.players.findOne({ uuid });
+    return [
+      player,
+      {
+        hand: player.hand,
+      },
+    ];
+  }
 }
 
 module.exports = Database;

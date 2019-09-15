@@ -4,6 +4,7 @@ import { push } from 'connected-react-router';
 import {
   FAIL,
   PENDING,
+  PLAYER_STATE_UPDATED,
   SUCCESS,
 } from '../actionTypes';
 
@@ -34,3 +35,10 @@ export const createPlayer = (name, gameId) => dispatch => {
     });
   });
 };
+
+export const playerStateUpdated = payload => dispatch => {
+  dispatch({
+    type: PLAYER_STATE_UPDATED,
+    payload,
+  });
+}

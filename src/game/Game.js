@@ -89,7 +89,7 @@ class Game {
   }
 
   updatePlayers(io, game) {
-    const players = this.getPlayersInGame(io, game);
+    const players = this.getSocketPlayersInGame(io, game);
 
     if (players.length === 0) {
       return false;
@@ -99,7 +99,7 @@ class Game {
     }
   }
 
-  getPlayersInGame(io, game) {
+  getSocketPlayersInGame(io, game) {
     if (!(game in io.sockets.adapter.rooms)) {
       return [];
     }
@@ -125,10 +125,26 @@ class Game {
     this.db.addPlayers(game);
 
     io.in(game).emit('game started');
+
+    for (const player of this.db.getPlayersInGame(game)) {
+      this.updatePlayerState(io, player.uuid);
+    }
   }
 
   updateGameState(io, game) {
     io.in(game).emit('game state', this.db.getGameState(game));
+  }
+
+  updatePlayerState(io, uuid) {
+    const [player, playerState] = this.db.getPlayer(uuid);
+
+    const sockets = io.sockets.adapter.rooms[player.game].sockets;
+    for (const socketId in sockets) {
+      const socket = io.sockets.connected[socketId];
+      if (socket.decoded_token.uuid === uuid) {
+        socket.emit('player state', playerState);
+      }
+    }
   }
 }
 
