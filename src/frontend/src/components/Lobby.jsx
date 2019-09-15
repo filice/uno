@@ -17,6 +17,20 @@ const Lobby = () => {
     }
   }, []);
 
+  const renderPlayerList = () => {
+    if (stateGame.players.length === 0) {
+      return <p>Loading...</p>;
+    }
+
+    return (
+      <ul>
+        {stateGame.players.map(player => (
+          <li className="player" key={player.uuid}>{player.name}</li>
+        ))}
+      </ul>
+    );
+  }
+
   return (
     <div className="text-centre top-margin">
       <Link to='/menu'>Back to menu</Link>
@@ -25,13 +39,9 @@ const Lobby = () => {
 
       <hr />
 
-      <h5>Players</h5>
+      <h5 id="players">Players</h5>
 
-      <ul>
-        {stateGame.players.map(player => (
-          <li key={player.uuid}>{player.name}</li>
-        ))}
-      </ul>
+      { renderPlayerList() }
 
       <hr />
 
