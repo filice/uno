@@ -3,6 +3,7 @@ import { replace } from 'connected-react-router';
 import { useDispatch, useSelector } from 'react-redux';
 
 import '../styles/game.scss';
+import Hand from './Hand';
 
 const Game = () => {
   const stateGame = useSelector(state => state.game);
@@ -56,18 +57,12 @@ const Game = () => {
     );
   };
 
-  const renderPlayer = () => {
+  const renderHand = () => {
     if (!statePlayer.hand) {
       return <p>Loading...</p>;
     }
 
-    return (
-      <ul>
-        {statePlayer.hand.map((card, i) => (
-          <li key={i}>{card.colour} {card.type}</li>
-        ))}
-      </ul>
-    );
+    return <Hand />;
   };
 
   return (
@@ -80,7 +75,7 @@ const Game = () => {
 
       <hr />
 
-      {renderPlayer()}
+      {renderHand()}
     </div>
   );
 };
