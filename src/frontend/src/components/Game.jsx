@@ -41,8 +41,8 @@ const Game = () => {
     }
   };
 
-  const renderGame = () => {
-    if (!stateGame.curColour || !stateGame.discardTop) {
+  const renderDiscard = () => {
+    if (!stateGame.discardTop) {
       return <p>Loading...</p>;
     };
 
@@ -55,6 +55,30 @@ const Game = () => {
       </div>
     );
   };
+
+  const renderPlayers = () => (
+    <div id="players">
+      <h5>Players</h5>
+      <ul>
+        {stateGame.players.map(player => (
+          <li
+            key={player.uuid}
+            className={player.uuid === stateGame.curTurn ? 'current' : ''}
+          >
+            {player.name}
+            {player.uuid === statePlayer.uuid && ' (you)'}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+
+  const renderGame = () => (
+    <>
+      {renderDiscard()}
+      {renderPlayers()}
+    </>
+  );
 
   const renderHand = () => {
     if (!statePlayer.hand) {

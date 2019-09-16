@@ -10,6 +10,23 @@ span#curPlayer {
 }
 
 div#discard-top {
-  display: flex;
+  display: inline-flex;
   justify-content: center;
+
+  width: 66%;
+}
+
+div#players {
+  display: inline-block;
+  width: 33%;
+
+  border-left: 1px solid $gray;
+
+  & > h5 {
+    font-size: 2rem;
+  }
+
+  & > ul > li.current {
+    font-weight: bold;
+  }
 }
