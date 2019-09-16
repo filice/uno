@@ -3,6 +3,7 @@ import { replace } from 'connected-react-router';
 import { useDispatch, useSelector } from 'react-redux';
 
 import '../styles/game.scss';
+import Card from './Card';
 import Hand from './Hand';
 
 const Game = () => {
@@ -45,15 +46,13 @@ const Game = () => {
       return <p>Loading...</p>;
     };
 
-    return (
-      <>
-        <p>Colour: {stateGame.curColour}</p>
-        <p>
-          Top:&nbsp;
-          {stateGame.discardTop.colour}&nbsp;
-          {stateGame.discardTop.type}
-        </p>
-      </>
+    return  (
+      <div id="discard-top">
+        <Card
+          type={stateGame.discardTop.type}
+          colour={stateGame.discardTop.colour}
+        />
+      </div>
     );
   };
 
