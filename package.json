@@ -1,7 +1,7 @@
 {
   "name": "uno",
   "version": "0.1.0",
-  "main": "src/index.js",
+  "main": "server/index.js",
   "author": "Ivan Fonseca <ivanfon@riseup.net>",
   "license": "GPL-3.0",
   "dependencies": {
@@ -17,8 +17,8 @@
     "nodemon": "^1.19.2"
   },
   "scripts": {
-    "postinstall": "cd src/frontend && yarn -D",
-    "start": "PORT=5000 nodemon ./src/index.js",
-    "start-frontend": "cd src/frontend && yarn start"
+    "postinstall": "cd frontend && yarn -D",
+    "start": "PORT=5000 nodemon ./server/index.js",
+    "start-frontend": "cd frontend && yarn start"
   }
 }
