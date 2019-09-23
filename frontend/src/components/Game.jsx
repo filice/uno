@@ -51,6 +51,8 @@ const Game = () => {
         <Card
           type={stateGame.discardTop.type}
           colour={stateGame.discardTop.colour}
+          enabled={false}
+          inHand={false}
         />
       </div>
     );
@@ -85,7 +87,7 @@ const Game = () => {
       return <p>Loading...</p>;
     }
 
-    return <Hand />;
+    return <Hand discardTop={stateGame.discardTop} />;
   };
 
   return (

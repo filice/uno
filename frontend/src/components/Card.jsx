@@ -2,7 +2,7 @@ import React from 'react';
 
 import '../styles/card.scss';
 
-const Card = ({ type, colour }) => {
+const Card = ({ type, colour, enabled, inHand }) => {
   const typeMapping = {
     'zero': '0',
     'one': '1',
@@ -21,8 +21,11 @@ const Card = ({ type, colour }) => {
     '+4': '+4',
   };
 
+  const cardClasses = (!enabled ? ' disabled': '') +
+                      (inHand ? ' hand' : '');
+
   return (
-    <div className="card">
+    <div className={ `card ${cardClasses}` }>
       <div className="card-content">
         {colour &&
           <><span className={`colour ${colour}`}></span>&nbsp;</>

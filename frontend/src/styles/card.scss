@@ -17,6 +17,14 @@ div.card {
   cursor: pointer;
   white-space: nowrap;
 
+  &.disabled {
+    cursor: not-allowed;
+
+    &.hand {
+      background-color: darken(white, 15%);
+    }
+  }
+
   & > .card-content {
     display: inline-block;
     position: absolute;
