@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { canPlay } from '../../../shared/hand.js';
+import { canPlay, sortHand } from '../../../shared';
 import Card from './Card';
 import '../styles/hand.scss';
 
@@ -12,16 +12,7 @@ const Hand = ({ discardTop }) => {
 
   // Sort hand
   useEffect(() => {
-    setSortedHand(
-      stateHand
-        .slice(0)
-        .sort((a, b) => {
-          if (!a.colour) return -1;
-          if (!b.colour) return 1;
-
-          return a.colour.localeCompare(b.colour);
-        })
-    );
+    setSortedHand(sortHand(stateHand));
   }, [stateHand]);
 
   return (

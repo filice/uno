@@ -1,20 +1,5 @@
 const utils = require('../utils.js');
-
-const COLOURS = ['red', 'yellow', 'green', 'blue'];
-const CARDS_PER_COLOUR = [
-  'one',
-  'two',
-  'three',
-  'four',
-  'five',
-  'six',
-  'seven',
-  'eight',
-  'nine',
-  'skip',
-  'reverse',
-  '+2',
-];
+const shared = require('../../shared');
 
 // Returns a full, unshuffled deck
 const getFullDeck = () => {
@@ -29,7 +14,7 @@ const getFullDeck = () => {
     }),
   ];
 
-  for (const colour of COLOURS) {
+  for (const colour of shared.COLOURS) {
     // Add zeros
     deck.push({
       type: 'zero',
@@ -37,7 +22,7 @@ const getFullDeck = () => {
     });
 
     // Add other cards
-    for (const card of CARDS_PER_COLOUR) {
+    for (const card of shared.CARD_TYPES) {
       deck.push(...Array(2).fill({
         type: card,
         colour,
