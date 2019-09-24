@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const socketioJwt = require('socketio-jwt');
 
 const deck = require('./deck.js');
+const shared = require('../../shared');
 
 const TOKEN_SECRET = process.env.TOKEN_KEY || 'secret';
 
@@ -85,6 +86,21 @@ class Game {
           this.startGame(io, player.game);
           this.updateGameState(io, player.game);
         });
+
+        socket.on('play card', card => {
+          const game = this.db.getGameState(player.game);
+
+          // It's the player's turn
+          if (player.uuid !== game.curTurn) return;
+          // The player has the card in their hand
+          if (!this.db.playerHasCard(player.uuid, card)) return;
+          // The card can be played on the current discard pile top card
+          if (!shared.canPlay(card, game.discardTop)) return;
+
+          this.db.playCard(player.game, player.uuid, card);
+
+          this.nextTurn(io, player.game);
+        });
     });
   }
 
@@ -126,25 +142,32 @@ class Game {
 
     io.in(game).emit('game started');
 
-    for (const player of this.db.getPlayersInGame(game)) {
-      this.updatePlayerState(io, player.uuid);
-    }
+    this.updatePlayerStates(io, game);
   }
 
   updateGameState(io, game) {
     io.in(game).emit('game state', this.db.getGameState(game));
   }
 
-  updatePlayerState(io, uuid) {
-    const [player, playerState] = this.db.getPlayer(uuid);
+  updatePlayerStates(io, game) {
+    const players = this.db.getPlayersInGame(game);
+    const sockets = io.sockets.adapter.rooms[game].sockets;
 
-    const sockets = io.sockets.adapter.rooms[player.game].sockets;
-    for (const socketId in sockets) {
-      const socket = io.sockets.connected[socketId];
-      if (socket.decoded_token.uuid === uuid) {
-        socket.emit('player state', playerState);
+    for (const player of players) {
+      for (const socketId in sockets) {
+        const socket = io.sockets.connected[socketId];
+        if (socket.decoded_token.uuid === player.uuid) {
+          const [p, playerState] = this.db.getPlayer(player.uuid);
+          socket.emit('player state', playerState);
+        }
       }
     }
+  }
+
+  nextTurn(io, game) {
+    this.db.nextTurn(game);
+    this.updateGameState(io, game);
+    this.updatePlayerStates(io, game);
   }
 }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import '../styles/card.scss';
+import { playCard } from '../socket.js';
 
 const Card = ({ type, colour, enabled, inHand }) => {
   const typeMapping = {
@@ -21,11 +22,17 @@ const Card = ({ type, colour, enabled, inHand }) => {
     '+4': '+4',
   };
 
+  const cardClicked = () => {
+    if (!enabled || !inHand) return;
+
+    playCard({ type, colour });
+  };
+
   const cardClasses = (!enabled ? ' disabled': '') +
                       (inHand ? ' hand' : '');
 
   return (
-    <div className={ `card ${cardClasses}` }>
+    <div className={ `card ${cardClasses}` } onClick={cardClicked} >
       <div className="card-content">
         {colour &&
           <><span className={`colour ${colour}`}></span>&nbsp;</>

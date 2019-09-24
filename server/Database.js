@@ -106,6 +106,52 @@ class Database {
       },
     ];
   }
+
+  playerHasCard(uuid, card) {
+    const player = this.players.findOne({ uuid });
+    const foundCard = player.hand.find(c => (
+      c.type === card.type && c.colour === card.colour
+    ));
+    return !!foundCard;
+  }
+
+  playCard(gameId, uuid, card) {
+    const game = this.games.findOne({ id: gameId });
+    const player = this.players.findOne({ uuid });
+
+    // Remove from hand
+    player.hand.splice(player.hand.findIndex(c => (
+      c.type === card.type && c.colour === card.colour
+    )), 1);
+    // Add to discard
+    game.discard.unshift(card);
+
+    this.games.update(game);
+    this.players.update(player);
+  }
+
+  nextTurn(gameId) {
+    const game = this.games.findOne({ id: gameId });
+
+    let curPlayerIndex = game.players.indexOf(game.curTurn);
+    // Move left/right
+    if (game.turnDirRight) {
+      curPlayerIndex++;
+    } else {
+      curPlayerIndex--;
+    }
+
+    // Wrap
+    if (curPlayerIndex > game.players.length - 1) {
+      curPlayerIndex = 0;
+    } else if (curPlayerIndex < 0) {
+      curPlayerIndex = game.players.length - 1;
+    }
+
+    game.curTurn = game.players[curPlayerIndex];
+
+    this.games.update(game);
+  }
 }
 
 module.exports = Database;

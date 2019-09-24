@@ -19,7 +19,8 @@ const canPlay = (card, discardTop) => {
 
   return !card.colour ||
          !discardTop.colour ||
-         card.colour === discardTop.colour;
+         card.colour === discardTop.colour ||
+         card.type === discardTop.type;
 };
 
 const sortHand = hand => {
