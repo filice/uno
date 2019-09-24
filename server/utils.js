@@ -8,7 +8,15 @@ const genUniqueId = games => {
   return genId();
 };
 
-const shuffleArray = arr => arr.sort(() => Math.random() - 0.5);
+// https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
+const shuffleArray = origArr => {
+  let a = origArr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+  return a;
+};
 
 module.exports = {
   genUniqueId,
