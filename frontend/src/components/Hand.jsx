@@ -5,7 +5,7 @@ import { canPlay, sortHand } from '../../../shared';
 import Card from './Card';
 import '../styles/hand.scss';
 
-const Hand = ({ discardTop }) => {
+const Hand = ({ discardTop, myTurn }) => {
   const [sortedHand, setSortedHand] = useState([]);
 
   const stateHand = useSelector(state => state.player.hand);
@@ -21,7 +21,7 @@ const Hand = ({ discardTop }) => {
         <Card key={i}
               type={card.type}
               colour={card.colour}
-              enabled={canPlay(card, discardTop)}
+              enabled={myTurn && canPlay(card, discardTop)}
               inHand={true}
         />
       ))}

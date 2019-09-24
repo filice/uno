@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { replace } from 'connected-react-router';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -7,6 +7,8 @@ import Card from './Card';
 import Hand from './Hand';
 
 const Game = () => {
+  const [myTurn, setMyTurn] = useState(false);
+
   const stateGame = useSelector(state => state.game);
   const statePlayer = useSelector(state => state.player);
   const dispatch = useDispatch();
@@ -18,12 +20,17 @@ const Game = () => {
     }
   }, []);
 
+  // Check if it's my turn
+  useEffect(() => {
+    setMyTurn(stateGame.curTurn === statePlayer.uuid);
+  }, [stateGame]);
+
   const renderTurnIndicator = () => {
     if (!stateGame.curTurn || !stateGame.players) {
       return <h4 id="turnIndicator">Loading...</h4>;
     }
 
-    if (stateGame.curTurn === statePlayer.uuid) {
+    if (myTurn) {
       return (
         <h4 id="turnIndicator">It's your turn!</h4>
       );
@@ -87,7 +94,9 @@ const Game = () => {
       return <p>Loading...</p>;
     }
 
-    return <Hand discardTop={stateGame.discardTop} />;
+    return <Hand discardTop={stateGame.discardTop}
+                 myTurn={myTurn}
+           />;
   };
 
   return (
