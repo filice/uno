@@ -17,7 +17,8 @@ const CARD_TYPES = [
 const canPlay = (card, discardTop) => {
   if (!discardTop) return;
 
-  return !card.colour ||
+  return ['wild', '+4'].includes(card.type) ||
+         !card.colour ||
          !discardTop.colour ||
          card.colour === discardTop.colour ||
          card.type === discardTop.type;

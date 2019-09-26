@@ -107,7 +107,13 @@ class Database {
     ];
   }
 
-  playerHasCard(uuid, card) {
+  playerHasCard(uuid, cardIn) {
+    const card = Object.assign({}, cardIn);
+
+    if (card.type === 'wild' || card.type === '+4') {
+      card.colour = null;
+    }
+
     const player = this.players.findOne({ uuid });
     const foundCard = player.hand.find(c => (
       c.type === card.type && c.colour === card.colour
@@ -115,14 +121,20 @@ class Database {
     return !!foundCard;
   }
 
-  playCard(gameId, uuid, card) {
+  playCard(gameId, uuid, cardIn) {
     const game = this.games.findOne({ id: gameId });
     const player = this.players.findOne({ uuid });
+
+    // Handle wild cards
+    let card = Object.assign({}, cardIn);
+    if (['wild', '+4'].includes(card.type)) card.colour = null;
 
     // Remove from hand
     player.hand.splice(player.hand.findIndex(c => (
       c.type === card.type && c.colour === card.colour
     )), 1);
+    // Revert card
+    card = Object.assign({}, cardIn);
     // Add to discard
     game.discard.unshift(card);
 

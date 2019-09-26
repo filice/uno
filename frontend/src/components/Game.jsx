@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import '../styles/game.scss';
 import Card from './Card';
+import ChooseColourModal from './ChooseColourModal';
 import Hand from './Hand';
 
 const Game = () => {
   const [myTurn, setMyTurn] = useState(false);
+  const [showChooseColour, setShowChooseColour] = useState(false);
 
   const stateGame = useSelector(state => state.game);
   const statePlayer = useSelector(state => state.player);
@@ -24,6 +26,10 @@ const Game = () => {
   useEffect(() => {
     setMyTurn(stateGame.curTurn === statePlayer.uuid);
   }, [stateGame]);
+
+  const showChooseColourModal = type => setShowChooseColour(type);
+
+  const hideChooseColourModal = () => setShowChooseColour(false);
 
   const renderTurnIndicator = () => {
     if (!stateGame.curTurn || !stateGame.players) {
@@ -96,6 +102,7 @@ const Game = () => {
 
     return <Hand discardTop={stateGame.discardTop}
                  myTurn={myTurn}
+                 showChooseColourModal={showChooseColourModal}
            />;
   };
 
@@ -110,6 +117,11 @@ const Game = () => {
       <hr />
 
       {renderHand()}
+
+        <ChooseColourModal
+          show={showChooseColour}
+          hideChooseColourModal={hideChooseColourModal}
+        />
     </div>
   );
 };

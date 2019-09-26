@@ -3,7 +3,14 @@ import React from 'react';
 import '../styles/card.scss';
 import { playCard } from '../socket.js';
 
-const Card = ({ type, colour, enabled, inHand }) => {
+const Card = ({
+  type,
+  colour,
+  enabled = false,
+  inHand = false,
+  showChooseColourModal,
+  hideChooseColourModal,
+}) => {
   const typeMapping = {
     'zero': '0',
     'one': '1',
@@ -20,12 +27,18 @@ const Card = ({ type, colour, enabled, inHand }) => {
     '+2': '+2',
     'wild': '🏳️‍🌈',
     '+4': '+4',
+    'blank': '',
   };
 
   const cardClicked = () => {
     if (!enabled || !inHand) return;
 
-    playCard({ type, colour });
+    if (!colour) {
+      showChooseColourModal(type);
+    } else {
+      playCard({ type, colour });
+      hideChooseColourModal();
+    }
   };
 
   const cardClasses = (!enabled ? ' disabled': '') +
