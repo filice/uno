@@ -101,6 +101,17 @@ class Game {
 
           this.nextTurn(io, player.game);
         });
+
+        socket.on('draw card', () => {
+          const game = this.db.getGameState(player.game);
+
+          // It's the player's turn
+          if (player.uuid !== game.curTurn) return;
+
+          this.db.drawCard(player.game, player.uuid);
+
+          this.nextTurn(io, player.game);
+        });
     });
   }
 

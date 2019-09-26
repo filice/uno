@@ -6,6 +6,7 @@ import '../styles/game.scss';
 import Card from './Card';
 import ChooseColourModal from './ChooseColourModal';
 import Hand from './Hand';
+import * as socket from '../socket';
 
 const Game = () => {
   const [myTurn, setMyTurn] = useState(false);
@@ -30,6 +31,8 @@ const Game = () => {
   const showChooseColourModal = type => setShowChooseColour(type);
 
   const hideChooseColourModal = () => setShowChooseColour(false);
+
+  const drawCard = () => socket.drawCard();
 
   const renderTurnIndicator = () => {
     if (!stateGame.curTurn || !stateGame.players) {
@@ -115,6 +118,12 @@ const Game = () => {
       {renderGame()}
 
       <hr />
+
+        <button onClick={drawCard}
+                disabled={!myTurn}
+        >
+          Draw
+        </button>
 
       {renderHand()}
 

@@ -66,8 +66,16 @@ const playCard = card => {
   socket.emit('play card', card);
 };
 
+const drawCard = () => {
+  const socket = getSocket();
+  if (!socket) return;
+
+  socket.emit('draw card');
+};
+
 export {
   connectSocket,
+  drawCard,
   playCard,
   sendStartGame,
 };

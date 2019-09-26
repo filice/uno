@@ -142,6 +142,16 @@ class Database {
     this.players.update(player);
   }
 
+  drawCard(gameId, uuid) {
+    const game = this.games.findOne({ id: gameId });
+    const player = this.players.findOne({ uuid });
+
+    player.hand.push(game.deck.splice(0, 1)[0]);
+
+    this.games.update(game);
+    this.players.update(player);
+  }
+
   nextTurn(gameId) {
     const game = this.games.findOne({ id: gameId });
 
