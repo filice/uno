@@ -86,10 +86,18 @@ class Database {
 
   getGameState(id) {
     const game = this.games.findOne({ id });
+    const playerHands = {};
+
+    for (const uuid of game.players) {
+      const player = this.players.findOne({ uuid });
+      playerHands[uuid] = ('hand' in player) ? player.hand.length : 0;
+    }
+
     return {
       curTurn: game.curTurn,
       curColour: game.curColour,
       discardTop: game.discard[0],
+      playerHands,
     }
   }
 

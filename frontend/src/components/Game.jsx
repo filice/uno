@@ -3,10 +3,11 @@ import { replace } from 'connected-react-router';
 import { useDispatch, useSelector } from 'react-redux';
 
 import '../styles/game.scss';
+import * as socket from '../socket';
 import Card from './Card';
 import ChooseColourModal from './ChooseColourModal';
 import Hand from './Hand';
-import * as socket from '../socket';
+import PlayerList from './PlayerList';
 
 const Game = () => {
   const [myTurn, setMyTurn] = useState(false);
@@ -74,27 +75,10 @@ const Game = () => {
     );
   };
 
-  const renderPlayers = () => (
-    <div id="players">
-      <h5>Players</h5>
-      <ul>
-        {stateGame.players.map(player => (
-          <li
-            key={player.uuid}
-            className={player.uuid === stateGame.curTurn ? 'current' : ''}
-          >
-            {player.name}
-            {player.uuid === statePlayer.uuid && ' (you)'}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-
   const renderGame = () => (
     <>
       {renderDiscard()}
-      {renderPlayers()}
+      <PlayerList />
     </>
   );
 

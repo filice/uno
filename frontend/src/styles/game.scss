@@ -15,16 +15,3 @@ div#discard-top {
 
   width: 66%;
 }
-
-div#players {
-  display: inline-block;
-  width: 33%;
-
-  & > h5 {
-    font-size: 2rem;
-  }
-
-  & > ul > li.current {
-    font-weight: bold;
-  }
-}

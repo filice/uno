@@ -1,0 +1,19 @@
+div#players {
+  display: inline-block;
+  width: 33%;
+
+  & > h5 {
+    font-size: 2rem;
+  }
+
+  & > ul > li {
+    &.current {
+      font-weight: bold;
+    }
+
+    & > span.name {
+      display: block;
+      margin-bottom: 0;
+    }
+  }
+}
