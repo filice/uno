@@ -13,6 +13,13 @@ const CARD_TYPES = [
   'reverse',
   '+2',
 ];
+const ACTION_CARDS = [
+  'skip',
+  'reverse',
+  '+2',
+  'wild',
+  '+4',
+];
 
 const canPlay = (card, discardTop) => {
   if (!discardTop) return;
@@ -35,6 +42,7 @@ const sortHand = hand => {
 };
 
 module.exports = {
+  ACTION_CARDS,
   COLOURS,
   CARD_TYPES,
   canPlay,

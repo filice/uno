@@ -108,7 +108,7 @@ class Game {
           // It's the player's turn
           if (player.uuid !== game.curTurn) return;
 
-          this.db.drawCard(player.game, player.uuid);
+          this.db.drawCards(player.game, player.uuid);
 
           this.nextTurn(io, player.game);
         });

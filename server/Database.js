@@ -140,13 +140,46 @@ class Database {
 
     this.games.update(game);
     this.players.update(player);
+
+    // Handle action cards
+    switch (card.type) {
+      case 'skip':
+        this.nextTurn(gameId);
+        break;
+      case 'reverse':
+        game.turnDirRight = !game.turnDirRight;
+        // Skip turn if two players
+        if (game.players.length === 2) {
+          this.nextTurn(gameId);
+        }
+        break;
+      case '+2': {
+        this.nextTurn(gameId);
+        const nextPlayer = this.players.findOne({
+          uuid: this.games.findOne({ id: gameId }).curTurn,
+        });
+        this.drawCards(gameId, nextPlayer.uuid, 2);
+        break;
+      }
+      case 'wild':
+        // Already handled
+        break;
+      case '+4': {
+        this.nextTurn(gameId);
+        const nextPlayer = this.players.findOne({
+          uuid: this.games.findOne({ id: gameId }).curTurn,
+        });
+        this.drawCards(gameId, nextPlayer.uuid, 4);
+        break;
+      }
+    }
   }
 
-  drawCard(gameId, uuid) {
+  drawCards(gameId, uuid, numCards = 1) {
     const game = this.games.findOne({ id: gameId });
     const player = this.players.findOne({ uuid });
 
-    player.hand.push(game.deck.splice(0, 1)[0]);
+    player.hand.push(...game.deck.splice(0, numCards));
 
     this.games.update(game);
     this.players.update(player);
