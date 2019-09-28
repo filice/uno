@@ -215,6 +215,10 @@ class Database {
 
     this.games.update(game);
   }
+
+  getNumCards(uuid) {
+    return this.players.findOne({ uuid }).hand.length;
+  }
 }
 
 module.exports = Database;

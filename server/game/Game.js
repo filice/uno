@@ -99,6 +99,12 @@ class Game {
 
           this.db.playCard(player.game, player.uuid, card);
 
+          // Check for win
+          if (this.db.getNumCards(player.uuid) === 0) {
+            io.in(player.game).emit('winner', player.uuid);
+            return;
+          }
+
           this.nextTurn(io, player.game);
         });
 

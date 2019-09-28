@@ -7,6 +7,7 @@ import {
   GAME_STARTED,
   GAME_STARTING,
   GAME_STATE_UPDATED,
+  GAME_WINNER,
   PENDING,
   PLAYERS_UPDATED,
   SUCCESS,
@@ -53,6 +54,7 @@ const initGameState = {
   curTurn: '',
   curColour: '',
   discardTop: {},
+  winner: null,
 };
 
 export const game = (state = initGameState, action) => {
@@ -66,7 +68,6 @@ export const game = (state = initGameState, action) => {
         ...initGameState,
         socket,
       };
-      break;
 
     case GAME_CONNECTED:
       return {
@@ -84,7 +85,6 @@ export const game = (state = initGameState, action) => {
         ...state,
         players: action.payload,
       };
-      break;
 
     case GAME_STARTING:
       return {
@@ -102,6 +102,12 @@ export const game = (state = initGameState, action) => {
       return {
         ...state,
         ...action.payload,
+      };
+
+    case GAME_WINNER:
+      return {
+        ...state,
+        winner: action.payload,
       };
 
     default:

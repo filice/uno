@@ -6,6 +6,7 @@ import {
   gameStarted,
   gameStarting,
   gameStateUpdated,
+  gameWinner,
   playerStateUpdated,
   updatePlayers,
 } from './actions';
@@ -44,6 +45,10 @@ const connectSocket = socket => {
 
           socket.on('player state', state => {
             store.dispatch(playerStateUpdated(state));
+          });
+
+          socket.on('winner', state => {
+            store.dispatch(gameWinner(state));
           });
         });
 

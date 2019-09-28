@@ -8,6 +8,7 @@ import {
   GAME_STARTED,
   GAME_STARTING,
   GAME_STATE_UPDATED,
+  GAME_WINNER,
   PENDING,
   PLAYERS_UPDATED,
   SUCCESS,
@@ -62,6 +63,13 @@ export const gameStarted = () => dispatch => {
 export const gameStateUpdated = payload => dispatch => {
   dispatch({
     type: GAME_STATE_UPDATED,
+    payload,
+  });
+};
+
+export const gameWinner = payload => dispatch => {
+  dispatch({
+    type: GAME_WINNER,
     payload,
   });
 };

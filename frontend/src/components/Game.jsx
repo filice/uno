@@ -8,6 +8,7 @@ import Card from './Card';
 import ChooseColourModal from './ChooseColourModal';
 import Hand from './Hand';
 import PlayerList from './PlayerList';
+import WinnerModal from './WinnerModal';
 
 const Game = () => {
   const [myTurn, setMyTurn] = useState(false);
@@ -115,6 +116,7 @@ const Game = () => {
           show={showChooseColour}
           hideChooseColourModal={hideChooseColourModal}
         />
+        <WinnerModal winner={stateGame.winner} />
     </div>
   );
 };
