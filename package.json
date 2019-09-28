@@ -18,7 +18,8 @@
   },
   "scripts": {
     "postinstall": "cd frontend && yarn -D",
-    "start": "PORT=5000 nodemon ./server/index.js",
-    "start-frontend": "cd frontend && yarn start"
+    "start": "NODE_ENV=production PORT=5000 nodemon ./server/index.js",
+    "start:dev": "PORT=5000 nodemon ./server/index.js",
+    "start:frontend": "cd frontend && yarn start"
   }
 }
