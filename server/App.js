@@ -1,16 +1,25 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const http = require('http');
+const path = require('path');
 const socketio = require('socket.io');
 
 const Database = require('./Database.js');
 const Game = require('./game/Game.js');
+
+const ENV = process.env.NODE_ENV || 'development';
 
 class App {
   constructor() {
     // Configure web server
     this.app = express();
     this.app.use(bodyParser.json());
+    if (ENV === 'production') {
+      this.app.use(express.static(path.join(__dirname, '../frontend/dist')));
+      this.app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+      });
+    }
 
     // Configure Socket.io server
     this.server = http.Server(this.app);
