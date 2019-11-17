@@ -5,6 +5,7 @@ import '../styles/playerList.scss';
 
 const PlayerList = () => {
   const stateGame = useSelector(state => state.game);
+  const statePlayer = useSelector(state => state.player);
 
   const getCurrentClass = uuid => (
     uuid === stateGame.curTurn ? 'current' : ''
@@ -19,7 +20,7 @@ const PlayerList = () => {
           >
             <span className="name">
               {player.name}
-              {player.uuid === stateGame.curTurn && ' (you)'}
+              {player.uuid === statePlayer.uuid && ' (you)'}
             </span>
             <span className="cards">
               {stateGame.playerHands &&
