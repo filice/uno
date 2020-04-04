@@ -36,7 +36,7 @@
     "typeface-inter": "^0.0.77"
   },
   "scripts": {
-    "start": "webpack-dev-server --open --port 8080 --host 0.0.0.0",
+    "start": "webpack-dev-server --open --mode development --port 8080 --host 0.0.0.0",
     "build": "webpack --mode production",
     "build:dev": "webpack --mode development"
   }
