@@ -25,9 +25,9 @@ const WinnerModal = ({ winner }) => {
 
   return (
     <div className={`modal ${winner ? 'show' : 'hide'}`}>
-      <h4>{winnerName} wins!</h4>
+      <h4 style="color: #000">{winnerName} wins!</h4>
       <hr />
-      <button onClick={backToLobby}>Back to Menu</button>
+      <button style="color: #000" onClick={backToLobby}>Back to Menu</button>
     </div>
   );
 };

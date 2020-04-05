@@ -48,7 +48,7 @@ const Card = ({
     <div className={ `card ${cardClasses}` } onClick={cardClicked} >
       <div className="card-content">
         {colour &&
-          <><span className={`colour ${colour}`}></span>&nbsp;</>
+          <><span className={`colour ${cardClasses} ${colour}`}></span>&nbsp;</>
         }
         <span className={`number`}>{typeMapping[type]}</span>
       </div>
