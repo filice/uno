@@ -7,8 +7,16 @@ div#players {
   }
 
   & > ul > li {
+      li {
+        border: 1px;
+        border-style: double;
+    }   
+  }
+
+  & > ul > li {
     &.current {
       font-weight: bold;
+      background: black;
     }
 
     & > span.name {

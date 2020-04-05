@@ -50,7 +50,7 @@ const Card = ({
         {colour &&
           <><span className={`colour ${colour}`}></span>&nbsp;</>
         }
-        <span>{typeMapping[type]}</span>
+        <span className={`number`}>{typeMapping[type]}</span>
       </div>
     </div>
   );

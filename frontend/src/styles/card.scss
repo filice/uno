@@ -34,17 +34,18 @@ div.card {
     transform: translate(-50%, -50%);
   }
 
-  & > span {  
+}
+span.number {
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 200px;  
+}
+span.colour {
+  display: inline-block;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  }
-}
-
-span.colour {
-  display: inline-block;
-
   width: 120px;
   height: 200px;
   border-radius: 25px;  
@@ -63,5 +64,65 @@ span.colour {
 
   &.blue {
     background-color: $card-blue;
+  }
+}
+@media only screen and (max-width: 767px) {
+  div.card {
+    position: relative;
+  
+    width: 80px;
+    height: 80px;
+  
+    margin: 5px;
+  
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    border-radius: 25px;
+  
+    user-select: none;
+    cursor: pointer;
+    white-space: nowrap;
+  
+    &.disabled {
+      cursor: not-allowed;
+  
+      &.hand {
+        background-color: darken(white, 15%);
+      }
+    }
+  
+    & > .card-content {
+      display: inline-block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  
+  span.colour {
+    display: inline-block;
+  
+    width: 20px;
+    height: 20px;
+  
+    border-radius: 5px;
+  
+    &.red {
+      background-color: $card-red;
+    }
+  
+    &.yellow {
+      background-color: $card-yellow;
+    }
+  
+    &.green {
+      background-color: $card-green;
+    }
+  
+    &.blue {
+      background-color: $card-blue;
+    }
   }
 }
