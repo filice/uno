@@ -104,7 +104,7 @@ const Game = () => {
 
       <hr />
 
-      <button class="deck" onClick={drawCard}
+      <button className="deck" onClick={drawCard}
                 disabled={!myTurn}
         >
         </button>
