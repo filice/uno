@@ -9,7 +9,7 @@ const ChooseColourModal = ({ show, hideChooseColourModal }) => {
 
   return (
     <div className={`modal ${show ? 'show' : 'hide'}`}>
-      <h4 style={{color: "#000"}}>Choose colour...</h4>
+      <h4 className="modalText">Choose colour...</h4>
       <hr />
       <div id="cards">
         {COLOURS.map((col, i) => (
