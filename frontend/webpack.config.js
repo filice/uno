@@ -25,6 +25,10 @@ module.exports = {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
         use: [ 'file-loader' ],
       },
+      {
+        test: /\.(jpg|jifif)$/,
+        use: [ 'file-loader' ],
+      },            
     ],
   },
   resolve: {
