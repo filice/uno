@@ -33,7 +33,22 @@
     "redux-thunk": "^2.3.0",
     "skeleton-css": "^2.0.4",
     "socket.io-client": "^2.2.0",
-    "typeface-inter": "^0.0.77"
+    "typeface-inter": "^0.0.77",
+    "@babel/core": "^7.6.0",
+    "@babel/preset-env": "^7.6.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.2.0",
+    "file-loader": "^4.2.0",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "node-sass": "^4.12.0",
+    "react-hot-loader": "^4.12.12",
+    "sass-loader": "^8.0.0",
+    "style-loader": "^1.0.0",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.8",
+    "webpack-dev-server": "^3.8.0"    
   },
   "scripts": {
     "start": "webpack-dev-server --open --mode development --port 8080 --host 0.0.0.0",
