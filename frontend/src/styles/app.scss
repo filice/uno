@@ -5,7 +5,8 @@
 
 body {
   color: $body-colour;
-  margin-top: 5%;
+  background-repeat: no-repeat;
+  background: url(../resources/background.jpg);
 }
 
 h1 {
@@ -21,7 +22,9 @@ h1 {
   padding-top: 30px;
   padding-bottom: 30px;
 }
-
+.container {
+  max-width: 100%;
+}
 .modal {
   position: fixed;
   width: 75%;
