@@ -38,7 +38,7 @@ const Menu = () => {
   };
 
   const openSourceClick = () => {
-    window.open('https://github.com/IvanFon/uno', '_blank');
+    window.open('https://gitlab.apps.albertofilice.it/alberto/uno', '_blank');
   };
 
   const validateName = n => {
