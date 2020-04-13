@@ -74,7 +74,7 @@ const Lobby = () => {
     <div className="text-centre top-margin">
       <Link to='/menu'>back to menu</Link>
       <h1>Lobby</h1>
-      <p>Game Code: <a href="https://wa.me/?text=Condivi il codice partita con i tuoi amici"><span className="code">{statePlayer.game}</span>Share your code to WhatsApp</a></p>
+     <p>Game Code: <a href="https://wa.me/?text=Condivi il codice partita con i tuoi amici" + {statePlayer.game}><span className="code">{statePlayer.game}</span></a> Click To Share</p>
 
       <hr />
 
