@@ -127,7 +127,7 @@ const Menu = () => {
           value={name}
           onChange={handleChange}
           placeholder="name"
-          minLength="4"
+          minLength="3"
           maxLength="15"
         />
         <br />
