@@ -24,8 +24,8 @@
     ]
   },
   "scripts": {
-    "postinstall": "cd frontend && npm install --only=dev",
+    "postinstall": "cd frontend && npm install",
     "start": "concurrently \"NODE_ENV=production PORT=5000 nodemon ./server/index.js\" \"npm run start:frontend\"",
-    "start:frontend": "cd frontend && yarn -D && yarn start"
+    "start:frontend": "cd frontend && npm install --only=dev && npm run start"
   }
 }
